@@ -3,82 +3,84 @@
 @section('page-title', 'Form Tambah Pegawai')
 
 @section('content')
-<div class="card shadow-sm">
-    <div class="card-body">
-        <form action="{{ route('employees.store') }}" method="POST">
-            @csrf
+<div class="bg-white rounded-lg shadow-md p-6">
+    <form action="{{ route('employees.store') }}" method="POST">
+        @csrf
 
-            {{-- Baris 1: Nama & Email --}}
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label class="form-label">Nama Lengkap</label>
-                    <input type="text" name="nama_lengkap" class="form-control" required placeholder="Nama Lengkap">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" required placeholder="email@kantor.com">
-                </div>
+        {{-- Grid 2 Kolom --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            {{-- Nama Lengkap --}}
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
+                <input type="text" name="nama_lengkap" required placeholder="Nama Lengkap"
+                       class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
             </div>
-
-            {{-- Baris 2: Departemen & Jabatan (DROPDOWN RELASI) --}}
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label class="form-label">Departemen</label>
-                    <select name="departemen_id" class="form-select" required>
-                        <option value="">-- Pilih Departemen --</option>
-                        @foreach($departments as $dept)
-                            <option value="{{ $dept->id }}">{{ $dept->nama_departemen }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Jabatan</label>
-                    <select name="jabatan_id" class="form-select" required>
-                        <option value="">-- Pilih Jabatan --</option>
-                        @foreach($positions as $pos)
-                            <option value="{{ $pos->id }}">
-                                {{ $pos->nama_jabatan }} (Gaji: Rp {{ number_format($pos->gaji_pokok, 0, ',', '.') }})
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
+            {{-- Email --}}
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <input type="email" name="email" required placeholder="email@kantor.com"
+                       class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
             </div>
+        </div>
 
-            {{-- Baris 3: Tgl Lahir, Tgl Masuk, No Telp --}}
-            <div class="row mb-3">
-                <div class="col-md-4">
-                    <label class="form-label">Tanggal Lahir</label>
-                    <input type="date" name="tanggal_lahir" class="form-control" required>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label">Tanggal Masuk</label>
-                    <input type="date" name="tanggal_masuk" class="form-control" required>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label">Nomor Telepon</label>
-                    <input type="text" name="nomor_telepon" class="form-control" required>
-                </div>
-            </div>
-
-            {{-- Baris 4: Alamat & Status --}}
-            <div class="mb-3">
-                <label class="form-label">Alamat Lengkap</label>
-                <textarea name="alamat" class="form-control" rows="2" required></textarea>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Status Kepegawaian</label>
-                <select name="status" class="form-select" required>
-                    <option value="aktif">Aktif</option>
-                    <option value="nonaktif">Non-Aktif (Resign/Cuti)</option>
+        {{-- Grid 2 Kolom: Departemen & Jabatan --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Departemen</label>
+                <select name="departemen_id" required class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white">
+                    <option value="">-- Pilih Departemen --</option>
+                    @foreach($departments as $dept)
+                        <option value="{{ $dept->id }}">{{ $dept->nama_departemen }}</option>
+                    @endforeach
                 </select>
             </div>
-
-            <div class="d-flex justify-content-end">
-                <a href="{{ route('employees.index') }}" class="btn btn-secondary me-2">Batal</a>
-                <button type="submit" class="btn btn-primary">Simpan Data</button>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Jabatan</label>
+                <select name="jabatan_id" required class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white">
+                    <option value="">-- Pilih Jabatan --</option>
+                    @foreach($positions as $pos)
+                        <option value="{{ $pos->id }}">{{ $pos->nama_jabatan }}</option>
+                    @endforeach
+                </select>
             </div>
-        </form>
-    </div>
+        </div>
+
+        {{-- Grid 3 Kolom: Tanggal & Telp --}}
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Lahir</label>
+                <input type="date" name="tanggal_lahir" required class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Masuk</label>
+                <input type="date" name="tanggal_masuk" required class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Telepon</label>
+                <input type="text" name="nomor_telepon" required class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            </div>
+        </div>
+
+        {{-- Alamat (Full Width) --}}
+        <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Alamat Lengkap</label>
+            <textarea name="alamat" rows="3" required class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+        </div>
+
+        {{-- Status --}}
+        <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+            <select name="status" required class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white">
+                <option value="aktif">Aktif</option>
+                <option value="nonaktif">Non-Aktif</option>
+            </select>
+        </div>
+
+        {{-- Tombol Aksi --}}
+        <div class="flex justify-end pt-4 border-t border-gray-200">
+            <a href="{{ route('employees.index') }}" class="mr-3 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition">Batal</a>
+            <button type="submit" class="px-6 py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition shadow-md">Simpan Data</button>
+        </div>
+    </form>
 </div>
 @endsection

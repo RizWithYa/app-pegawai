@@ -1,72 +1,66 @@
 @extends('master')
-
-{{-- Judul Tab Browser --}}
 @section('title', 'Daftar Pegawai')
-
-{{-- Judul Halaman (akan muncul di header master) --}}
 @section('page-title', 'Manajemen Data Pegawai')
 
 @section('content')
-    {{-- 1. Tombol Tambah Data (Menggunakan Style Bootstrap) --}}
-    <div class="mb-3">
-        <a href="{{ route('employees.create') }}" class="btn btn-primary">
+    <div class="mb-6">
+        <a href="{{ route('employees.create') }}" 
+           class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow transition duration-200">
             + Tambah Pegawai Baru
         </a>
     </div>
 
-    {{-- 2. Tabel Responsif dengan Class Bootstrap --}}
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped table-hover align-middle">
-            <thead class="table-dark">
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <thead class="bg-gray-800 text-white">
                 <tr>
-                    <th>No</th>
-                    <th>Nama Lengkap & Email</th>
-                    <th>Departemen</th> <th>Jabatan</th>    <th>Tanggal Masuk</th>
-                    <th class="text-center">Status</th>
-                    <th class="text-center">Aksi</th>
+                    <th class="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wider">No</th>
+                    <th class="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wider">Nama & Email</th>
+                    <th class="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wider">Departemen</th>
+                    <th class="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wider">Jabatan</th>
+                    <th class="py-3 px-4 text-center text-sm font-semibold uppercase tracking-wider">Status</th>
+                    <th class="py-3 px-4 text-center text-sm font-semibold uppercase tracking-wider">Aksi</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="divide-y divide-gray-200">
                 @forelse($employees as $employee)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>
-                            <strong>{{ $employee->nama_lengkap }}</strong><br>
-                            <span class="text-muted small">{{ $employee->email }}</span>
+                    <tr class="hover:bg-gray-50 transition">
+                        <td class="py-3 px-4 text-gray-700">{{ $loop->iteration }}</td>
+                        <td class="py-3 px-4">
+                            <div class="font-medium text-gray-900">{{ $employee->nama_lengkap }}</div>
+                            <div class="text-sm text-gray-500">{{ $employee->email }}</div>
                         </td>
-                        
-                        {{-- 3. Menampilkan Data Relasi (Menggunakan Safe Navigation) --}}
-                        <td>{{ $employee->department?->nama_departemen ?? '-' }}</td>
-                        <td>{{ $employee->position?->nama_jabatan ?? '-' }}</td>
-                        
-                        <td>{{ $employee->tanggal_masuk }}</td>
-                        
-                        {{-- 4. Status dengan Badge Warna --}}
-                        <td class="text-center">
-                            <span class="badge bg-{{ $employee->status == 'aktif' ? 'success' : 'secondary' }}">
+                        <td class="py-3 px-4 text-gray-700">{{ $employee->department?->nama_departemen ?? '-' }}</td>
+                        <td class="py-3 px-4 text-gray-700">{{ $employee->position?->nama_jabatan ?? '-' }}</td>
+                        <td class="py-3 px-4 text-center">
+                            <span class="inline-block px-2 py-1 text-xs font-semibold rounded-full 
+                                {{ $employee->status == 'aktif' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
                                 {{ ucfirst($employee->status) }}
                             </span>
                         </td>
-
-                        {{-- 5. Tombol Aksi yang Lebih Rapi --}}
-                        <td class="text-center">
-                            <div class="btn-group" role="group">
-                                <a href="{{ route('employees.show', $employee->id) }}" class="btn btn-sm btn-info text-white">Detail</a>
-                                <a href="{{ route('employees.edit', $employee->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                                
-                                <form action="{{ route('employees.destroy', $employee->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data {{ $employee->nama_lengkap }}?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
-                                </form>
-                            </div>
+                        <td class="py-3 px-4 text-center space-x-1">
+                            <a href="{{ route('employees.show', $employee->id) }}" 
+                               class="bg-cyan-500 hover:bg-cyan-600 text-white text-xs px-3 py-1.5 rounded transition">
+                               Detail
+                            </a>
+                            <a href="{{ route('employees.edit', $employee->id) }}" 
+                               class="bg-yellow-400 hover:bg-yellow-500 text-white text-xs px-3 py-1.5 rounded transition">
+                               Edit
+                            </a>
+                            <form action="{{ route('employees.destroy', $employee->id) }}" method="POST" class="inline" onsubmit="return confirm('Hapus data ini?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" 
+                                        class="bg-red-500 hover:bg-red-600 text-white text-xs px-3 py-1.5 rounded transition">
+                                    Hapus
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 @empty
-                    {{-- Tampilan jika data kosong --}}
                     <tr>
-                        <td colspan="7" class="text-center p-4">
-                            <em>Belum ada data pegawai. Silakan tambah data baru.</em>
+                        <td colspan="6" class="py-6 text-center text-gray-500 italic">
+                            Belum ada data pegawai.
                         </td>
                     </tr>
                 @endforelse
@@ -74,8 +68,7 @@
         </table>
     </div>
 
-    {{-- 6. Navigasi Halaman (Pagination) --}}
-    <div class="mt-3">
+    <div class="mt-4">
         {{ $employees->links() }}
     </div>
 @endsection

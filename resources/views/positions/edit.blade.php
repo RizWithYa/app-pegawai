@@ -1,24 +1,33 @@
 @extends('master')
 @section('title', 'Edit Jabatan')
-@section('page-title', 'Edit Jabatan')
+@section('page-title', 'Edit Data Jabatan')
 
 @section('content')
-<div class="card col-md-6">
-    <div class="card-body">
-        <form action="{{ route('positions.update', $position->id) }}" method="POST">
-            @csrf
-            @method('PUT')
-            <div class="mb-3">
-                <label class="form-label">Nama Jabatan</label>
-                <input type="text" name="nama_jabatan" class="form-control" value="{{ $position->nama_jabatan }}" required>
+<div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md border border-gray-200">
+    <form action="{{ route('positions.update', $position->id) }}" method="POST">
+        @csrf
+        @method('PUT')
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2">Nama Jabatan</label>
+                <input type="text" name="nama_jabatan" required 
+                       value="{{ old('nama_jabatan', $position->nama_jabatan) }}"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 transition">
             </div>
-            <div class="mb-3">
-                <label class="form-label">Gaji Pokok (Rp)</label>
-                <input type="number" name="gaji_pokok" class="form-control" value="{{ $position->gaji_pokok }}" required>
+
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2">Gaji Pokok (Rp)</label>
+                <input type="number" name="gaji_pokok" required 
+                       value="{{ old('gaji_pokok', $position->gaji_pokok) }}"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 transition">
             </div>
-            <button type="submit" class="btn btn-warning">Update</button>
-            <a href="{{ route('positions.index') }}" class="btn btn-secondary">Batal</a>
-        </form>
-    </div>
+        </div>
+
+        <div class="flex items-center justify-end space-x-3 border-t border-gray-100 pt-4">
+            <a href="{{ route('positions.index') }}" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition">Batal</a>
+            <button type="submit" class="px-4 py-2 bg-yellow-500 text-white font-bold rounded-md hover:bg-yellow-600 transition">Update Data</button>
+        </div>
+    </form>
 </div>
 @endsection

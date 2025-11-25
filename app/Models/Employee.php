@@ -9,6 +9,7 @@ class Employee extends Model
 {
     use HasFactory;
 
+    // Mass Assignment: Kolom mana saja yang boleh diisi user
     protected $fillable = [
         'nama_lengkap',
         'email',
@@ -17,31 +18,32 @@ class Employee extends Model
         'alamat',
         'tanggal_masuk',
         'status',
+        // PENTING: Foreign Key harus didaftarkan di sini
         'departemen_id',
         'jabatan_id',
     ];
 
-    // Relasi: Setiap karyawan milik satu departemen (Many to One)
-    public function department() {
-        // 'departemen_id' adalah foreign key di tabel employees
-        return $this->belongsTo(Department::class, 'departemen_id'); 
+    // Relasi 1: Pegawai milik satu Departemen
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'departemen_id');
     }
 
-    // Relasi: Setiap karyawan punya satu jabatan (Many to One)
-    public function position() {
-        // 'jabatan_id' adalah foreign key di tabel employees
+    // Relasi 2: Pegawai punya satu Jabatan
+    public function position()
+    {
         return $this->belongsTo(Position::class, 'jabatan_id');
     }
 
-    // Relasi: Satu karyawan punya banyak data absensi (One to Many)
-    public function attendances() {
-        // 'karyawan_id' adalah foreign key di tabel attendances
+    // Relasi 3: Pegawai punya banyak data Absensi
+    public function attendances()
+    {
         return $this->hasMany(Attendance::class, 'karyawan_id');
     }
 
-    // Relasi: Satu karyawan punya banyak riwayat gaji (One to Many)
-    public function salaries() {
-        // 'karyawan_id' adalah foreign key di tabel salaries
+    // Relasi 4: Pegawai punya banyak data Gaji
+    public function salaries()
+    {
         return $this->hasMany(Salary::class, 'karyawan_id');
     }
 }

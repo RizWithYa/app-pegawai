@@ -9,7 +9,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\SalaryController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('employees.index');
 });
 
 // Route CRUD Pegawai (Sudah ada sebelumnya)
