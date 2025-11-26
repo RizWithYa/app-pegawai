@@ -38,7 +38,7 @@
                         
                         <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium space-x-2">
                             <a href="{{ route('departments.edit', $department->id) }}" 
-                               class="inline-block bg-yellow-400 hover:bg-yellow-500 text-white text-xs px-3 py-1.5 rounded transition shadow-sm">
+                                class="inline-block bg-yellow-400 hover:bg-yellow-500 text-white text-xs px-3 py-1.5 rounded transition shadow-sm">
                                 Edit
                             </a>
                             

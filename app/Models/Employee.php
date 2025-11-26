@@ -18,7 +18,6 @@ class Employee extends Model
         'alamat',
         'tanggal_masuk',
         'status',
-        // PENTING: Foreign Key harus didaftarkan di sini
         'departemen_id',
         'jabatan_id',
     ];

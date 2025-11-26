@@ -7,15 +7,12 @@
     <form action="{{ route('employees.store') }}" method="POST">
         @csrf
 
-        {{-- Grid 2 Kolom --}}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            {{-- Nama Lengkap --}}
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
                 <input type="text" name="nama_lengkap" required placeholder="Nama Lengkap"
                        class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
             </div>
-            {{-- Email --}}
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
                 <input type="email" name="email" required placeholder="email@kantor.com"
@@ -23,7 +20,6 @@
             </div>
         </div>
 
-        {{-- Grid 2 Kolom: Departemen & Jabatan --}}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Departemen</label>
@@ -45,7 +41,6 @@
             </div>
         </div>
 
-        {{-- Grid 3 Kolom: Tanggal & Telp --}}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Lahir</label>
@@ -61,13 +56,11 @@
             </div>
         </div>
 
-        {{-- Alamat (Full Width) --}}
         <div class="mb-6">
             <label class="block text-sm font-medium text-gray-700 mb-1">Alamat Lengkap</label>
             <textarea name="alamat" rows="3" required class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
         </div>
 
-        {{-- Status --}}
         <div class="mb-6">
             <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
             <select name="status" required class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white">
@@ -76,7 +69,6 @@
             </select>
         </div>
 
-        {{-- Tombol Aksi --}}
         <div class="flex justify-end pt-4 border-t border-gray-200">
             <a href="{{ route('employees.index') }}" class="mr-3 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition">Batal</a>
             <button type="submit" class="px-6 py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition shadow-md">Simpan Data</button>

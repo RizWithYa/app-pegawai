@@ -18,7 +18,6 @@ class Salary extends Model
         'total_gaji'
     ];
 
-    // Relasi Kebalikan: Data gaji ini milik satu pegawai
     public function employee()
     {
         return $this->belongsTo(Employee::class, 'karyawan_id');
