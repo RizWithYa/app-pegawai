@@ -15,7 +15,7 @@ class Salary extends Model
         'gaji_pokok', 
         'tunjangan', 
         'potongan', 
-        'total_gaji'
+        'total_gaji',
     ];
 
     public function employee()

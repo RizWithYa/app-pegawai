@@ -14,7 +14,7 @@ public function up(): void
     Schema::create('salaries', function (Blueprint $table) {
         $table->id();
         $table->unsignedBigInteger('karyawan_id');
-        $table->string('bulan', 10);
+        $table->string('bulan', 50);
         $table->decimal('gaji_pokok', 10, 2);
         $table->decimal('tunjangan', 10, 2)->default(0);
         $table->decimal('potongan', 10, 2)->default(0);

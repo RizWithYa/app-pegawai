@@ -46,7 +46,15 @@
                         </div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium space-x-2">
+                        
+                        <a href="{{ route('salaries.print', $salary->id) }}" target="_blank" 
+                           class="inline-flex items-center bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-1.5 rounded transition shadow-sm">
+                            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                            Cetak
+                        </a>
+
                         <a href="{{ route('salaries.edit', $salary->id) }}" class="text-indigo-600 hover:text-indigo-900 bg-indigo-50 px-3 py-1 rounded hover:bg-indigo-100 transition">Edit</a>
+                        
                         <form action="{{ route('salaries.destroy', $salary->id) }}" method="POST" class="inline" onsubmit="return confirm('Hapus data gaji ini?')">
                             @csrf
                             @method('DELETE')

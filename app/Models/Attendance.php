@@ -16,7 +16,7 @@ class Attendance extends Model
         'tanggal', 
         'waktu_masuk', 
         'waktu_keluar', 
-        'status_absensi'
+        'status_absensi',
     ];
 
     public function employee()

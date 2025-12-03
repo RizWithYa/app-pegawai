@@ -3,15 +3,36 @@
 @section('page-title', 'Manajemen Data Pegawai')
 
 @section('content')
-    <div class="mb-6">
+    <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+        
         <a href="{{ route('employees.create') }}" 
-           class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow transition duration-200">
-            + Tambah Pegawai Baru
+           class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow transition duration-200 inline-flex items-center">
+            <span class="mr-2 text-lg">+</span> Tambah Pegawai
         </a>
+
+        <form action="{{ route('employees.index') }}" method="GET" class="w-full md:w-auto">
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+
+                <input type="text" 
+                       name="search" 
+                       value="{{ request('search') }}"
+                       class="pl-10 pr-20 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full md:w-72 transition"
+                       placeholder="Cari nama atau email...">
+                       
+                <button type="submit" class="absolute inset-y-0 right-0 px-4 text-sm font-medium text-white bg-blue-600 rounded-r-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 transition">
+                    Cari
+                </button>
+            </div>
+        </form>
     </div>
 
-    <div class="overflow-x-auto">
-        <table class="min-w-full bg-white border border-gray-200 rounded-lg overflow-hidden">
+    <div class="overflow-x-auto bg-white border border-gray-200 rounded-lg shadow-sm">
+        <table class="min-w-full bg-white overflow-hidden">
             <thead class="bg-gray-800 text-white">
                 <tr>
                     <th class="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wider">No</th>
@@ -40,14 +61,14 @@
                         </td>
                         <td class="py-3 px-4 text-center space-x-1">
                             <a href="{{ route('employees.show', $employee->id) }}" 
-                               class="bg-cyan-500 hover:bg-cyan-600 text-white text-xs px-3 py-1.5 rounded transition">
+                               class="bg-cyan-500 hover:bg-cyan-600 text-white text-xs px-3 py-1.5 rounded transition inline-block">
                                Detail
                             </a>
                             <a href="{{ route('employees.edit', $employee->id) }}" 
-                               class="bg-yellow-400 hover:bg-yellow-500 text-white text-xs px-3 py-1.5 rounded transition">
+                               class="bg-yellow-400 hover:bg-yellow-500 text-white text-xs px-3 py-1.5 rounded transition inline-block">
                                Edit
                             </a>
-                            <form action="{{ route('employees.destroy', $employee->id) }}" method="POST" class="inline" onsubmit="return confirm('Hapus data ini?')">
+                            <form action="{{ route('employees.destroy', $employee->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Hapus data ini?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" 
@@ -59,8 +80,12 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="py-6 text-center text-gray-500 italic">
-                            Belum ada data pegawai.
+                        <td colspan="6" class="py-8 text-center text-gray-500 italic">
+                            @if(request('search'))
+                                Tidak ditemukan pegawai dengan kata kunci "<strong>{{ request('search') }}</strong>".
+                            @else
+                                Belum ada data pegawai.
+                            @endif
                         </td>
                     </tr>
                 @endforelse
@@ -69,6 +94,7 @@
     </div>
 
     <div class="mt-4">
-        {{ $employees->links() }}
+        {{-- PENTING: withQueryString() agar pencarian tidak hilang saat pindah halaman --}}
+        {{ $employees->withQueryString()->links() }}
     </div>
 @endsection

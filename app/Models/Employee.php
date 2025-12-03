@@ -9,8 +9,8 @@ class Employee extends Model
 {
     use HasFactory;
 
-    // Mass Assignment: Kolom mana saja yang boleh diisi user
     protected $fillable = [
+        'user_id', // <--- WAJIB DITAMBAHKAN AGAR BISA DISIMPAN
         'nama_lengkap',
         'email',
         'nomor_telepon',
@@ -22,25 +22,31 @@ class Employee extends Model
         'jabatan_id',
     ];
 
-    // Relasi 1: Pegawai milik satu Departemen
+    // Relasi ke User (Akun Login)
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    // Relasi ke Departemen
     public function department()
     {
         return $this->belongsTo(Department::class, 'departemen_id');
     }
 
-    // Relasi 2: Pegawai punya satu Jabatan
+    // Relasi ke Jabatan
     public function position()
     {
         return $this->belongsTo(Position::class, 'jabatan_id');
     }
 
-    // Relasi 3: Pegawai punya banyak data Absensi
+    // Relasi ke Absensi
     public function attendances()
     {
         return $this->hasMany(Attendance::class, 'karyawan_id');
     }
 
-    // Relasi 4: Pegawai punya banyak data Gaji
+    // Relasi ke Gaji
     public function salaries()
     {
         return $this->hasMany(Salary::class, 'karyawan_id');
