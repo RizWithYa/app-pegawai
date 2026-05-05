@@ -51,7 +51,7 @@
 <div class="bg-blue-600 rounded-lg shadow-lg p-6 text-white">
     <h3 class="text-2xl font-bold mb-2">Selamat Datang di Sistem Lantara!</h3>
     <p class="opacity-90">
-        Anda sedang login sebagai Administrator. Gunakan menu navigasi di atas untuk mengelola data pegawai, departemen, jabatan, absensi, dan penggajian.
+        Anda sedang login sebagai <strong>{{ Auth::user()->name }}</strong>. Gunakan menu navigasi di atas untuk mengelola data pegawai, departemen, jabatan, absensi, dan penggajian.
     </p>
 </div>
 @endsection

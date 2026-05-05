@@ -118,7 +118,7 @@ class EmployeeController extends Controller
     public function destroy(Employee $employee)
     {
         // Opsional: Hapus user login-nya juga jika perlu
-        // if($employee->user_id) { User::find($employee->user_id)->delete(); }
+        if($employee->user_id) { User::find($employee->user_id)->delete(); }
 
         $employee->delete();
         return redirect()->route('employees.index')->with('success', 'Pegawai berhasil dihapus.');

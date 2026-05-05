@@ -10,7 +10,9 @@
         <div class="mb-6">
             <label class="block text-gray-700 text-sm font-bold mb-2">Nama Departemen</label>
             <input type="text" name="nama_departemen" required placeholder="Contoh: Information Technology"
-                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+                   value="{{ old('nama_departemen') }}"
+                   class="w-full px-3 py-2 border {{ $errors->has('nama_departemen') ? 'border-red-500' : 'border-gray-300' }} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+            @error('nama_departemen') <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p> @enderror
         </div>
 
         <div class="flex items-center justify-end space-x-3">

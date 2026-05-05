@@ -11,13 +11,17 @@
             <div>
                 <label class="block text-gray-700 text-sm font-bold mb-2">Nama Jabatan</label>
                 <input type="text" name="nama_jabatan" required placeholder="Contoh: Senior Developer"
-                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                       value="{{ old('nama_jabatan') }}"
+                       class="w-full px-3 py-2 border {{ $errors->has('nama_jabatan') ? 'border-red-500' : 'border-gray-300' }} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                @error('nama_jabatan') <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p> @enderror
             </div>
 
             <div>
                 <label class="block text-gray-700 text-sm font-bold mb-2">Gaji Pokok (Rp)</label>
                 <input type="number" name="gaji_pokok" required placeholder="Contoh: 5000000"
-                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                       value="{{ old('gaji_pokok') }}"
+                       class="w-full px-3 py-2 border {{ $errors->has('gaji_pokok') ? 'border-red-500' : 'border-gray-300' }} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                @error('gaji_pokok') <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p> @enderror
             </div>
         </div>
 

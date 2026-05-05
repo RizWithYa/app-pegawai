@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'App Pegawai')</title>
     
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-    </style>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gray-100 text-gray-800">
 
@@ -97,6 +92,17 @@
                     <span class="font-bold">Berhasil!</span> {{ session('success') }}
                 </div>
                 <button onclick="this.parentElement.style.display='none'" class="text-green-700 font-bold px-2">
+                    &times;
+                </button>
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 shadow-sm rounded-r flex justify-between items-center" role="alert">
+                <div>
+                    <span class="font-bold">Gagal!</span> {{ session('error') }}
+                </div>
+                <button onclick="this.parentElement.style.display='none'" class="text-red-700 font-bold px-2">
                     &times;
                 </button>
             </div>

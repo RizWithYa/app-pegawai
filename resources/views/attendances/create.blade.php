@@ -10,12 +10,13 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div class="md:col-span-2">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Nama Pegawai</label>
-                <select name="karyawan_id" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 bg-white">
+                <select name="karyawan_id" required class="w-full px-3 py-2 border {{ $errors->has('karyawan_id') ? 'border-red-500' : 'border-gray-300' }} rounded-md focus:ring-2 focus:ring-blue-500 bg-white">
                     <option value="">-- Cari Nama Pegawai --</option>
                     @foreach($employees as $emp)
-                        <option value="{{ $emp->id }}">{{ $emp->nama_lengkap }}</option>
+                        <option value="{{ $emp->id }}" {{ old('karyawan_id') == $emp->id ? 'selected' : '' }}>{{ $emp->nama_lengkap }}</option>
                     @endforeach
                 </select>
+                @error('karyawan_id') <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p> @enderror
             </div>
 
             <div>
