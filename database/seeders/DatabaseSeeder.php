@@ -24,5 +24,16 @@ class DatabaseSeeder extends Seeder
                 'role' => 'admin',
             ]
         );
+
+        // Buat Karyawan User
+        User::updateOrCreate(
+            ['email' => 'karyawan@lantara.com'],
+            [
+                'name' => 'Karyawan',
+                'email' => 'karyawan@lantara.com',
+                'password' => bcrypt('karyawan123'),
+                'role' => 'karyawan',
+            ]
+        );
     }
 }
